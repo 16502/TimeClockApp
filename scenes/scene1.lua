@@ -39,7 +39,7 @@ function scene:create( event )
 				effect = "fromBottom",
 				time = 800
 			}
-			composer.gotoScene( "scenes.scene2",options )	
+			composer.gotoScene( "scenes.scene2",options )
 		end
 	end
 
@@ -77,7 +77,7 @@ function scene:didEnter( event )
 	local sceneGroup = self.view
 	local prevScene = composer.getSceneName( "previous" )
 	if prevScene then
-		composer.removeScene( prevScene, true ) 
+		composer.removeScene( prevScene, true )
 		print("removing ", prevScene)
 	end
 end

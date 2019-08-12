@@ -1,3 +1,7 @@
+-- Right now save function just clears the time
+
+
+
 local Stopwatch = class()
 Stopwatch.__name = "Buttons"
 local mainGroup = display.newGroup()
@@ -55,7 +59,7 @@ local buttonHandler = function( event )
 			pausedAt = 0
 		end
 
-	elseif ( event.target.id == "cancel" ) then
+	elseif ( event.target.id == "save" ) then
 
 		runMode = "stopped"
 		pauseResumeButton:setLabel( "Start" )
@@ -90,8 +94,8 @@ mainGroup:insert( pauseResumeButton )
 
 cancelButton = widget.newButton(
 	{
-		id = "cancel",
-		label = "Cancel",
+		id = "save",
+		label = "Save",
 		x = display.contentCenterX,
 		y = display.contentHeight - 50,
 		width = 160,

@@ -18,11 +18,16 @@ local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
 function scene:create( event )
+    ----------------------------------------------------------------------
+    -- Stopwatch
+    ----------------------------------------------------------------------
+    ----------------------------------------------------------------------
+    -- Clock In and Button
+    ----------------------------------------------------------------------
 	local sceneGroup = self.view
     isUserClockedIn = false
     local clockButton
-	----------------------------------------------------------------------
-	----------------------------------------------------------------------
+
     local function handleButtonClockIn( event )
         if (isUserClockedIn == false) then
             isUserClockedIn = true
@@ -54,7 +59,9 @@ function scene:create( event )
     elseif isUserClockedIn == true then
         clockButton:setLabel("Clock Out")
     end
-
+    ----------------------------------------------------------------------
+    -- Time Storage
+    ----------------------------------------------------------------------
 end
 ---------------------------------------------------------------------------------
 -- Generally Do Not Touch Below This Line

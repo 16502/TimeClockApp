@@ -1,7 +1,3 @@
--- Right now save function just clears the time
-
-
-
 local Stopwatch = class()
 Stopwatch.__name = "Buttons"
 local mainGroup = display.newGroup()
@@ -60,7 +56,7 @@ local buttonHandler = function( event )
 		end
 
 	elseif ( event.target.id == "save" ) then
-
+        -- Insert time to JSON file
 		runMode = "stopped"
 		pauseResumeButton:setLabel( "Start" )
 		timerText.text = "0.0"
@@ -79,35 +75,35 @@ pauseResumeButton = widget.newButton(
 	{
 		id = "pauseResume",
 		label = "Start",
-		x = display.contentCenterX,
-		y = display.contentHeight - 100,
+        x = display.contentCenterX - 100,
+		y = display.contentCenterY,
 		width = 160,
 		height = 32,
-		font = appFont,
+		font = "LexendDeca-Regular.ttf",
 		fontSize = 16,
 		shape = "rectangle",
 		fillColor = { default={ 0.9,0.37,0.05,1 }, over={ 0.945,0.386,0.053,1 } },
 		labelColor = { default={ 1,1,1,1 }, over={ 1,1,1,1 } },
 		onRelease = buttonHandler
 	})
-mainGroup:insert( pauseResumeButton )
+mainGroup:insert(pauseResumeButton)
 
 cancelButton = widget.newButton(
 	{
 		id = "save",
 		label = "Save",
-		x = display.contentCenterX,
-		y = display.contentHeight - 50,
+		x = display.contentCenterX + 100,
+		y = display.contentCenterY,
 		width = 160,
 		height = 32,
-		font = appFont,
+		font = "LexendDeca-Regular.ttf",
 		fontSize = 16,
 		shape = "rectangle",
 		fillColor = { default={ 0.55,0.125,0.125,1 }, over={ 0.66,0.15,0.15,1 } },
 		labelColor = { default={ 1,1,1,1 }, over={ 1,1,1,1 } },
 		onRelease = buttonHandler
 	})
-mainGroup:insert( cancelButton )
+mainGroup:insert(cancelButton)
 
 -- In order for the right-aligned timer to display nicely, we need a font that has monospaced digits
 -- Usually this is the system font and we can detect it by measuring the relative widths of the "1" and "2" characters
@@ -116,29 +112,21 @@ local testText = display.newText( { x=-1000, y=-1000, text="1", font=native.syst
 local width1 = testText.width
 testText.text = "2"
 local width2 = testText.width
-display.remove( testText )
-
-if ( width2 > width1 ) then
-	-- The system font doesn't have monospaced digits, so use a font known to have them
-	bestFontForDevice = ( system.getInfo("platform") == "win32" and "Courier New" or "Helvetica Neue" )
-else
-	-- The system font has monospaced digits
-	bestFontForDevice = native.systemFontBold
-end
+display.remove(testText)
 
 -- Create timer text object
 timerText = display.newText(
 	{
 		parent=mainGroup,
 		text="0.0",
-		x=display.contentCenterX-15,
+		x=display.contentCenterX,
 		y=105,
 		width=310,
-		font=bestFontForDevice,
+		font= "LexendDeca-Regular.ttf", -- ## CHANGE FONT ##
 		fontSize=140,
-		align="right"
+		align="center"
 	})
-timerText:setFillColor( 1 )
+timerText:setFillColor(1)
 
 -- Timer function
 function timerText:timer( event )

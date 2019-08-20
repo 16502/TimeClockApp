@@ -1,5 +1,6 @@
 -- =============================================================
 -- 12DTS Composer Example
+-- https://docs.coronalabs.com/tutorial/data/jsonSaveLoad/index.html
 -- =============================================================
 -- Scene 1
 -- =============================================================
@@ -8,6 +9,7 @@ local scene    		= composer.newScene()
 local widget 		= require( "widget" )
 require("classes.30logglobal")
 local Buttons       = require("classes.stopwatch")
+local loadsaveM = require("loadsave")
 ----------------------------------------------------------------------
 --								LOCALS								--
 ----------------------------------------------------------------------
@@ -27,38 +29,38 @@ function scene:create( event )
 	local sceneGroup = self.view
     isUserClockedIn = false
     local clockButton
-
-    local function handleButtonClockIn( event )
-        if (isUserClockedIn == false) then
-            isUserClockedIn = true
-            clockButton:setLabel("Clock Out")
-        elseif (isUserClockedIn == true) then
-            isUserClockedIn = false
-            clockButton:setLabel("Clock In")
-        end
-    end
-    clockButton = widget.newButton(
-        {
-            label = "",
-            onRelease = handleButtonClockIn,
-            emboss = false,
-            shape = "roundedRect",
-            width = 300,
-            height = 75,
-            cornerRadius = 2,
-            fillColor = { default={1,0,0,1}, over={1,0.1,0.7,0.4} },
-            strokeColor = { default={1,0.4,0,1}, over={0.8,0.8,1,1} },
-            strokeWidth = 4
-        }
-    )
-    sceneGroup:insert(clockButton)
-    clockButton.x = centerX
-    clockButton.y = centerY - 150
-    if isUserClockedIn == false then
-        clockButton:setLabel("Clock In")
-    elseif isUserClockedIn == true then
-        clockButton:setLabel("Clock Out")
-    end
+    --
+    -- local function handleButtonClockIn( event )
+    --     if (isUserClockedIn == false) then
+    --         isUserClockedIn = true
+    --         clockButton:setLabel("Clock Out")
+    --     elseif (isUserClockedIn == true) then
+    --         isUserClockedIn = false
+    --         clockButton:setLabel("Clock In")
+    --     end
+    -- end
+    -- clockButton = widget.newButton(
+    --     {
+    --         label = "",
+    --         onRelease = handleButtonClockIn,
+    --         emboss = false,
+    --         shape = "roundedRect",
+    --         width = 300,
+    --         height = 75,
+    --         cornerRadius = 2,
+    --         fillColor = { default={1,0,0,1}, over={1,0.1,0.7,0.4} },
+    --         strokeColor = { default={1,0.4,0,1}, over={0.8,0.8,1,1} },
+    --         strokeWidth = 4
+    --     }
+    -- )
+    -- sceneGroup:insert(clockButton)
+    -- clockButton.x = centerX
+    -- clockButton.y = centerY - 150
+    -- if isUserClockedIn == false then
+    --     clockButton:setLabel("Clock In")
+    -- elseif isUserClockedIn == true then
+    --     clockButton:setLabel("Clock Out")
+    -- end
     ----------------------------------------------------------------------
     -- Time Storage
     ----------------------------------------------------------------------

@@ -29,6 +29,7 @@ function scene:create( event )
 	local sceneGroup = self.view
     isUserClockedIn = false
     local clockButton
+
     --
     -- local function handleButtonClockIn( event )
     --     if (isUserClockedIn == false) then

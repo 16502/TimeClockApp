@@ -10,7 +10,7 @@ local widget = require( "widget" )
 
 -- Set local variables
 local timeDelay = 100  -- 1/10th of a second ( 1000 milliseconds / 10 = 100 )
-local timerIterations = 600  -- Set the timer limit to 60 seconds ( 600 * 0.1 = 60 )
+local timerIterations = 12000  -- Set the timer limit to 20 hours
 local runMode = "stopped"
 local startTime = 0
 local pausedAt = 0
@@ -74,7 +74,7 @@ end
 pauseResumeButton = widget.newButton(
 	{
 		id = "pauseResume",
-		label = "Start",
+		label = "Clock In",
         x = display.contentCenterX - 100,
 		y = display.contentCenterY,
 		width = 160,
@@ -91,7 +91,7 @@ mainGroup:insert(pauseResumeButton)
 cancelButton = widget.newButton(
 	{
 		id = "save",
-		label = "Save",
+		label = "Clock Out",
 		x = display.contentCenterX + 100,
 		y = display.contentCenterY,
 		width = 160,

@@ -7,11 +7,10 @@ local myData = loadsaveM.loadTable("myData.json") or {}
 
 public.loadValues = function ()
 	-- set up defaukt values
-	local defaultSettings = {}
-	defaultSettings.currentLevel = 3
-	defaultSettings.currentSceneName = "game"
-	defaultSettings.highScore = 30000
-	defaultSettings.difficulty = "easy"
+	local timeWorked = {}
+	timeWorked.today = 3
+	timeWorked.thisWeek
+    timeWorked.thisMonth
 
 
 

@@ -21,14 +21,20 @@ local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
 function scene:create( event)
-
     local sceneGroup = self.view
     isUserClockedIn = false
     local clockButton
     print("\nThis is the original table")
     local myData = timesListM.loadValues()
     loadsaveM.print_r(myData)
-
+    print(myData.today)
+    workedToday = display.newText("Number of hours worked today = " ..math.round((myData.today/60)/60), centerX + 80, centerY + 120, 450, 75, "LexendDeca-Regular.ttf", 14)
+    workedToday:setTextColor(0,0,0,1)
+    workedWeek = display.newText("Number of hours worked this week = " ..math.round((myData.thisWeek/60)/60), centerX + 80, centerY + 145, 450, 75, "LexendDeca-Regular.ttf", 14)
+    workedWeek:setTextColor(0,0,0,1)
+    workedMonth = display.newText("Number of hours worked this month = " ..math.round((myData.thisMonth/60)/60), centerX + 80, centerY + 170, 450, 75, "LexendDeca-Regular.ttf", 14)
+    workedMonth:setTextColor(0,0,0,1)
+    workedToday.align = "center"
 end
 ---------------------------------------------------------------------------------
 -- Generally Do Not Touch Below This Line

@@ -132,7 +132,7 @@ timerText = display.newText(
 		y=105,
 		width=310,
 		font= "LexendDeca-Regular.ttf", -- ## CHANGE FONT ##
-		fontSize=140,
+		fontSize=100,
 		align="center"
 	})
 timerText:setFillColor(0)

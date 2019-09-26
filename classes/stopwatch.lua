@@ -6,13 +6,15 @@ local mainGroup = display.newGroup()
 ----------------------
 
 -- Require libraries/plugins
-local widget = require( "widget" )
+local widget = require( "widget" ) --
+local loadsaveM = require("loadsave")
+local timesListM = require("timesList")
 
 -- Set local variables
 local timeDelay = 100  -- 1/10th of a second ( 1000 milliseconds / 10 = 100 )
 local timerIterations = 12000  -- Set the timer limit to 20 hours
-local runMode = "stopped"
-local startTime = 0
+local runMode = "stopped" -- Sets current timer mode to stopped
+local startTime = 0 -- Sets the inital time to 0
 local pausedAt = 0
 
 -- Forward references
@@ -32,33 +34,40 @@ Runtime:addEventListener( "resize", onResize )
 
 -- Button handler function
 local buttonHandler = function( event )
-
 	if ( event.target.id == "pauseResume" ) then
-
 		if ( runMode == "running" ) then
 			runMode = "paused"
-			pauseResumeButton:setLabel( "Resume" )
+			pauseResumeButton:setLabel( "Clock Back In" )
 			pausedAt = event.time
 			timer.pause( timerID )
-
 		elseif( runMode == "paused" ) then
 			runMode = "running"
-			pauseResumeButton:setLabel( "Pause" )
+			pauseResumeButton:setLabel( "Take a Break" )
 			timer.resume( timerID )
-
 		elseif( runMode == "stopped" ) then
 			runMode = "running"
-			pauseResumeButton:setLabel( "Pause" )
+			pauseResumeButton:setLabel( "Take a Break" )
 			timerText.text = "0.0"
+
 			timerID = timer.performWithDelay( timeDelay, timerText, timerIterations )
 			startTime = 0
 			pausedAt = 0
-		end
+            timerText:setTextColor(0,0,0)
+        end
 
 	elseif ( event.target.id == "save" ) then
         -- Insert time to JSON file
 		runMode = "stopped"
-		pauseResumeButton:setLabel( "Start" )
+        currentHoursWorked = (((startTime - pausedAt) * 0.01 - (startTime - pausedAt) * 0.001 ) - (startTime - pausedAt) * 0.01 )
+        print("current clocked time = " ..currentHoursWorked .." seconds")
+        local myData = timesListM.loadValues()
+        myData.today = myData.today + currentHoursWorked
+        myData.thisWeek = myData.today
+        myData.thisMonth = myData.thisWeek
+        myData.thisYear = myData.thisMonth
+        timesListM.updateValues(myData)
+        loadsaveM.print_r(myData)
+        pauseResumeButton:setLabel( "Start" )
 		timerText.text = "0.0"
 		if ( timerID ) then
 			timer.cancel( timerID )
@@ -75,15 +84,15 @@ pauseResumeButton = widget.newButton(
 	{
 		id = "pauseResume",
 		label = "Clock In",
-        x = display.contentCenterX - 100,
+        x = display.contentCenterX - 80,
 		y = display.contentCenterY,
 		width = 160,
-		height = 32,
+		height = 45,
 		font = "LexendDeca-Regular.ttf",
 		fontSize = 16,
 		shape = "rectangle",
-		fillColor = { default={ 0.9,0.37,0.05,1 }, over={ 0.945,0.386,0.053,1 } },
-		labelColor = { default={ 1,1,1,1 }, over={ 1,1,1,1 } },
+		fillColor = { default={ 0.84,0.88,0.88,1 }, over={ 0,1,0,1 } },
+		labelColor = { default={ 0,0,0,1 }, over={ 0,0,0,1 } },
 		onRelease = buttonHandler
 	})
 mainGroup:insert(pauseResumeButton)
@@ -92,15 +101,15 @@ cancelButton = widget.newButton(
 	{
 		id = "save",
 		label = "Clock Out",
-		x = display.contentCenterX + 100,
+		x = display.contentCenterX + 80,
 		y = display.contentCenterY,
 		width = 160,
-		height = 32,
+		height = 45,
 		font = "LexendDeca-Regular.ttf",
 		fontSize = 16,
 		shape = "rectangle",
-		fillColor = { default={ 0.55,0.125,0.125,1 }, over={ 0.66,0.15,0.15,1 } },
-		labelColor = { default={ 1,1,1,1 }, over={ 1,1,1,1 } },
+		fillColor = { default={ 0.84,0.88,0.88,1 }, over={ 1,0,0,1 } },
+		labelColor = { default={ 0,0,0,1 }, over={ 0,0,0,1 } },
 		onRelease = buttonHandler
 	})
 mainGroup:insert(cancelButton)
@@ -126,8 +135,8 @@ timerText = display.newText(
 		fontSize=140,
 		align="center"
 	})
-timerText:setFillColor(1)
-
+timerText:setFillColor(0)
+display.setDefault("background", 1, 1, 1)
 -- Timer function
 function timerText:timer( event )
 

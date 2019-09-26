@@ -8,14 +8,12 @@ local myData = loadsaveM.loadTable("myData.json") or {}
 public.loadValues = function ()
 	-- set up defaukt values
 	local timeWorked = {}
-	timeWorked.today = 3
-	timeWorked.thisWeek
-    timeWorked.thisMonth
-
-
-
+	timeWorked.today = 0
+	timeWorked.thisWeek = 0
+    timeWorked.thisMonth = 0
+    timeWorked.thisYear = 0
 	-- add default values if they do not exist
-	for k, v in pairs(defaultSettings) do
+	for k, v in pairs(timeWorked) do
 		myData[k] = myData[k] or v
 	end
 	loadsaveM.saveTable(myData, "myData.json")

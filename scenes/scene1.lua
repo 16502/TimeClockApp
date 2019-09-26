@@ -10,6 +10,7 @@ local widget 		= require( "widget" )
 require("classes.30logglobal")
 local Buttons       = require("classes.stopwatch")
 local loadsaveM = require("loadsave")
+local timesListM = require("timesList")
 ----------------------------------------------------------------------
 --								LOCALS								--
 ----------------------------------------------------------------------
@@ -19,52 +20,15 @@ local fullh = display.contentHeight
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
-function scene:create( event )
-    ----------------------------------------------------------------------
-    -- Stopwatch
-    ----------------------------------------------------------------------
-    ----------------------------------------------------------------------
-    -- Clock In and Button
-    ----------------------------------------------------------------------
-	local sceneGroup = self.view
+function scene:create( event)
+
+    local sceneGroup = self.view
     isUserClockedIn = false
     local clockButton
+    print("\nThis is the original table")
+    local myData = timesListM.loadValues()
+    loadsaveM.print_r(myData)
 
-    --
-    -- local function handleButtonClockIn( event )
-    --     if (isUserClockedIn == false) then
-    --         isUserClockedIn = true
-    --         clockButton:setLabel("Clock Out")
-    --     elseif (isUserClockedIn == true) then
-    --         isUserClockedIn = false
-    --         clockButton:setLabel("Clock In")
-    --     end
-    -- end
-    -- clockButton = widget.newButton(
-    --     {
-    --         label = "",
-    --         onRelease = handleButtonClockIn,
-    --         emboss = false,
-    --         shape = "roundedRect",
-    --         width = 300,
-    --         height = 75,
-    --         cornerRadius = 2,
-    --         fillColor = { default={1,0,0,1}, over={1,0.1,0.7,0.4} },
-    --         strokeColor = { default={1,0.4,0,1}, over={0.8,0.8,1,1} },
-    --         strokeWidth = 4
-    --     }
-    -- )
-    -- sceneGroup:insert(clockButton)
-    -- clockButton.x = centerX
-    -- clockButton.y = centerY - 150
-    -- if isUserClockedIn == false then
-    --     clockButton:setLabel("Clock In")
-    -- elseif isUserClockedIn == true then
-    --     clockButton:setLabel("Clock Out")
-    -- end
-    ----------------------------------------------------------------------
-    -- Time Storage
-    ----------------------------------------------------------------------
 end
 ---------------------------------------------------------------------------------
 -- Generally Do Not Touch Below This Line

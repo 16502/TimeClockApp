@@ -6,7 +6,7 @@
 --	1. Requires
 ----------------------------------------------------------------------
 -- http://docs.coronalabs.com/daily/api/library/composer/index.html
-local composer 	= require "composer" 
+local composer 	= require "composer"
 
 
 ----------------------------------------------------------------------
@@ -16,4 +16,4 @@ local composer 	= require "composer"
 --
 composer.isDebug = true
 
-composer.gotoScene( "scenes.scene1" )	
+composer.gotoScene( "scenes.mainScreen" )

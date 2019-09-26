@@ -1,3 +1,8 @@
+--======================================--
+-- This code was created by corona labs --
+--======================================--
+
+
 local Stopwatch = class()
 Stopwatch.__name = "Buttons"
 local mainGroup = display.newGroup()
@@ -6,13 +11,13 @@ local mainGroup = display.newGroup()
 ----------------------
 
 -- Require libraries/plugins
-local widget = require( "widget" ) --
-local loadsaveM = require("loadsave")
-local timesListM = require("timesList")
+local widget = require( "widget" )-- Loads the widget libraries
+local loadsaveM = require("loadsave")-- Loads the loadsave libraries
+local timesListM = require("timesList")-- Loads the timesList libraries
 
 -- Set local variables
 local timeDelay = 100  -- 1/10th of a second ( 1000 milliseconds / 10 = 100 )
-local timerIterations = 12000  -- Set the timer limit to 20 hours
+local timerIterations = 12000  -- Set the timer limit to 20 hours as I dont think anyone would be working longer than that
 local runMode = "stopped" -- Sets current timer mode to stopped
 local startTime = 0 -- Sets the inital time to 0
 local pausedAt = 0
@@ -58,14 +63,14 @@ local buttonHandler = function( event )
 	elseif ( event.target.id == "save" ) then
         -- Insert time to JSON file
 		runMode = "stopped"
-        currentHoursWorked = (((startTime - pausedAt) * 0.01 - (startTime - pausedAt) * 0.001 ) - (startTime - pausedAt) * 0.01 )
+        currentHoursWorked = (((startTime - pausedAt) * 0.01 - (startTime - pausedAt) * 0.001 ) - (startTime - pausedAt) * 0.01 ) -- Algorithim i made so that the time that actually saved would be the real time
         print("current clocked time = " ..currentHoursWorked .." seconds")
-        local myData = timesListM.loadValues()
+        local myData = timesListM.loadValues() -- Loads the timesWorked table
         myData.today = myData.today + currentHoursWorked
         myData.thisWeek = myData.today
         myData.thisMonth = myData.thisWeek
         myData.thisYear = myData.thisMonth
-        timesListM.updateValues(myData)
+        timesListM.updateValues(myData) -- Saves the timesworked tatble
         loadsaveM.print_r(myData)
         pauseResumeButton:setLabel( "Start" )
 		timerText.text = "0.0"
@@ -80,7 +85,7 @@ end
 
 
 -- Create buttons
-pauseResumeButton = widget.newButton(
+pauseResumeButton = widget.newButton( -- Creates the button that allows the user to clock in
 	{
 		id = "pauseResume",
 		label = "Clock In",
@@ -97,7 +102,7 @@ pauseResumeButton = widget.newButton(
 	})
 mainGroup:insert(pauseResumeButton)
 
-cancelButton = widget.newButton(
+cancelButton = widget.newButton( -- Creates the button that allows the user to clock Out
 	{
 		id = "save",
 		label = "Clock Out",
@@ -124,7 +129,7 @@ local width2 = testText.width
 display.remove(testText)
 
 -- Create timer text object
-timerText = display.newText(
+timerText = display.newText( -- Creates the text that will change as the time changes - orginal value is 0.0
 	{
 		parent=mainGroup,
 		text="0.0",
@@ -135,8 +140,8 @@ timerText = display.newText(
 		fontSize=100,
 		align="center"
 	})
-timerText:setFillColor(0)
-display.setDefault("background", 1, 1, 1)
+timerText:setFillColor(0) -- Sets the timer text colour to black
+display.setDefault("background", 1, 1, 1) -- Sets the app backgroup to white
 -- Timer function
 function timerText:timer( event )
 
